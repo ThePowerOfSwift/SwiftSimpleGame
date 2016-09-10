@@ -32,8 +32,8 @@ class Enemy {
 
 class Tower {
     let position: Point
-    let range = 1
-    let strenght = 1
+    var range = 1
+    var strenght = 1
     
     init(x: Int, y: Int) {
         position = Point(x: x, y: y)
@@ -63,6 +63,32 @@ class Tower {
 }
 
 
+class SuperEnemy: Enemy {
+    let isSuper = true
+    
+    override init(x: Int, y: Int) {
+        super.init(x: x, y: y)
+        self.life = 50
+    }
+}
+
+
+class LaserTower: Tower {
+    
+    override init(x: Int, y: Int) {
+        super.init(x: x, y: y)
+        
+        self.range = 100
+        self.strenght = 100
+    }
+    
+    override func fireAtEnemy(enemy: Enemy) {
+        while enemy.life >= 0 {
+            enemy.decreaseHealth(factor: strenght)
+        }
+        print("Enemy vanquished!")
+    }
+}
 
 let tower = Tower(x: 0, y: 0)
 let enemy = Enemy(x: 1, y: 1)
